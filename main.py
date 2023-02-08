@@ -61,7 +61,7 @@ def create():
         usr = users(new_username, new_password)
         db.session.add(usr)
         db.session.commit()
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
 
     return render_template("create.html")
 
@@ -74,6 +74,9 @@ def view():
     else:
         flash("Sorry, you are not in admin mode and cannot access that page")
         return redirect(url_for("home"))
+    
+
+
 @app.route("/stats", methods = ["POST", "GET"])
 def stats():
     if 'logged in' in session:
@@ -86,14 +89,25 @@ def stats():
 
                 #pandas code
                 df = pd.read_csv(file)
-                a = f"This dataset has {len(df.columns)} columns, all named: {df.columns}"
-                b = f"The mean of the first column is {df['Credit amount'].mean()}"
-                return render_template("stats.html", a=a, b=b)
+                session['df'] = df
+                name = request.form['name']
+                session['name'] = name
+                return redirect(url_for("statsinprogress"))
             a="no stats"
             return render_template("stats.html", a=a)
     flash("You are not logged in. Please log in before using Stats Summarizer")
     return redirect(url_for("login"))
 
+@app.route("/statsinprogress", methods = ["POST", "GET"])
+def statsinprogress():
+    if 'logged in' in session:
+        if session['logged in'] == False:
+            flash("You are not logged in. Please log in before using Stats Summarizer")
+            return redirect(url_for("login"))
+        else:
+            if request.method == "POST":
+                name = session['name']
+                return render_template("statsinprogress.html", name=name)
 
 
 @app.route("/logout")
@@ -110,4 +124,3 @@ def logout():
 if __name__ == "__main__":
     db.create_all()
     app.run(debug=True)
-
