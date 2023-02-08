@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}  
+{% with messages = get_flashed_messages() %} 
+        {% if messages %}  
+            {% for msg in messages %} 
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h1>Welcome To My Pandas Statistics Generator!</h1>
+<p>Thank you for stopping by. I hope you enjoy!</p>
+
+<ul>
+    <li><a href="/login">Login Page!</a> </li>
+
+</ul>
+{% endblock %}
