@@ -1,6 +1,14 @@
 from flask import Flask, redirect, url_for, render_template, request, session, flash 
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
+from pandas import json_normalize
+import json
+
+
+#creating dataframe
+global df 
+
+
 
 #create application
 app = Flask(__name__)
@@ -88,26 +96,52 @@ def stats():
                 file = request.files['file']
 
                 #pandas code
-                df = pd.read_csv(file)
-                session['df'] = df
-                name = request.form['name']
-                session['name'] = name
+                
+                dataframe = pd.read_csv(file)
+
+
+                with open("df.json", "r") as f:
+                    data = json.load(f)
+                data = dataframe.to_json(orient = 'index')
+                with open('df.json', 'w') as f:
+                    json.dump(data, f, indent=2)
+
+
+                session['in progress'] = True
+                print(session["in progress"])
                 return redirect(url_for("statsinprogress"))
-            a="no stats"
-            return render_template("stats.html", a=a)
+            
+            return render_template("stats.html")
     flash("You are not logged in. Please log in before using Stats Summarizer")
     return redirect(url_for("login"))
 
 @app.route("/statsinprogress", methods = ["POST", "GET"])
 def statsinprogress():
+    
     if 'logged in' in session:
         if session['logged in'] == False:
             flash("You are not logged in. Please log in before using Stats Summarizer")
             return redirect(url_for("login"))
         else:
-            if request.method == "POST":
-                name = session['name']
-                return render_template("statsinprogress.html", name=name)
+            if 'in progress' in session:
+                if session['in progress'] == True:
+                    if request.method == "POST":
+                        with open("df.json", "r") as f:
+                            data = json.load(f)
+                        df = pd.read_json(data, orient="index")
+                        a = df.columns
+                        
+                        return render_template("statsinprogress.html", a=a)
+                    else:
+                        return render_template("statsinprogress.html")
+                else:
+                    return render_template("statsinprogress.html")
+            else:
+                flash("No data entered, please submit a csv file")
+                return redirect(url_for("stats"))
+    else:
+        flash("You are not logged in. Please log in before using Stats Summarizer")
+        return redirect(url_for("login"))
 
 
 @app.route("/logout")
