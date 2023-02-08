@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}  
+{% with messages = get_flashed_messages() %} 
+        {% if messages %}  
+            {% for msg in messages %} 
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h1>Welcome To My Pandas Statistics Generator!</h1>
+
+<form action="#" method = "post" enctype="multipart/form-data">
+    <p>Please Enter Your File: </p>
+    <input type="file" name="file">
+    <input type="submit" value="submit">
+</form>
+
+
+<p>Your Statistics:</p>
+<p>{{a}}</p>
+<p>{{b}}</p>
+{% endblock %}
