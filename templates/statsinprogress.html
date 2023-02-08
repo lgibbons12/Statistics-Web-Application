@@ -1,0 +1,19 @@
+{% extends "base.html" %} 
+
+{% block title %}Current Statistics{% endblock %}  
+
+{% block content %}  
+<p>Currently Working on The Datafile {{name}}</p>
+<form action = "#" method = "post">
+    <p>What Would You Like To Do?</p>
+    <input type = "radio" name="Quick Summary">
+    <input type = "radio" name="Relationship">
+    <input type = "radio" name="Graph">
+</form>
+
+
+
+
+<p>Do you want to work on a new file?</p>
+<a href="stats.html">Input New File</a>
+{% endblock %}
