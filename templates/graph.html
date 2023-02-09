@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+
+
+{% block title %}Visualization{% endblock %}
+
+{% block content %}  
+{% with messages = get_flashed_messages() %} 
+        {% if messages %}  
+            {% for msg in messages %} 
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+{% if plot_url %}
+    <img src = {{plot_url}} alt="Chart cannot be displayed">
+{% endif %}
+
+<form action="#" method="post">
+    <input type="submit" value="Return To Stats Picker" name="return">
+
+
+</form>
+{% endblock %}
