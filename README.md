@@ -1,5 +1,12 @@
 # Statistics-Web-Application
 
+
+Link To Website: http://liamg12.pythonanywhere.com/
+
+The graphing function does not work yet for the hosted version.
+
+
+
 This simple web application takes in any .csv file provided by the user, and give quick summary, relationship, and graphing summaries that are understandable by a non-statistics savvy person.
 
 
