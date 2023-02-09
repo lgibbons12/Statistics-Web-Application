@@ -41,13 +41,21 @@ For me, being successful was creating a web application that did statistical ana
 Sources:
 Pandas Learning
 - https://www.freecodecamp.org/learn/data-analysis-with-python/data-analysis-with-python-course/data-analysis-example-a 
+
+
 Flask Tutorial
 - https://www.youtube.com/watch?v=mqhxxeeTbu0&list=PLzMcBGfZo4-n4vJJybUVV3Un_NFS5EOgX&ab_channel=TechWithTim
+
+
 Debugging:
 - Stack Overflow
 - A Little ChatGPT
+
+
 JSON Conversions
 - https://sparkbyexamples.com/pandas/pandas-convert-dataframe-to json/#:~:text=You%20can%20convert%20pandas%20DataFrame,stands%20for%20JavaScript%20Object%20Notation%20 
 - https://sparkbyexamples.com/pandas/pandas-convert-json-to-dataframe/ 
+
+
 MatPlotLib in Flask
 - https://www.youtube.com/watch?v=Vf2K6zYQmu8&ab_channel=code_with_yanglin 
