@@ -3,17 +3,80 @@
 {% block title %}Current Statistics{% endblock %}  
 
 {% block content %}  
-<p>Currently Working on The Datafile {{name}}</p>
-<form action = "#" method = "post">
-    <p>What Would You Like To Do?</p>
-    <input type = "radio" name="Quick Summary">
-    <input type = "radio" name="Relationship">
-    <input type = "radio" name="Graph">
+<h1>Statistics Generator!</h1>
+{% if show == 0 %}
+    <form action = "#" method = "post">
+        <h5>What Would You Like To Do?</h5>
+
+        
+        <input type = "radio" name="firstselect" value="Quick Summary" id="quicksum">
+        <label for="quicksum">Quick Summary</label>
+        <br>
+        <input type = "radio" name="firstselect" value="Relationship" id="red">
+        <label for="rel">Relationship</label>
+        <br>
+        <input type = "radio" name="firstselect" value="Graph" id="graph">
+        <label for="graph">Graph</label>
+
+        <br><br>
+        <input type="submit" value="submit">
+    </form>
+    {% endif %}
+
+
+<!-- Relationship!!!!!-->
+{% if show == 2 %} 
+    <form action = "#" method = "post">
+        <h5>What Two Columns Would You Like?</h5>
+        {% for i in list %}
+            <input type = "checkbox" name="relselect" value = "{{i}}" id = "{{i}}">
+            <label for="{{i}}">{{i}}</label>
+        {% endfor %}
+        <br>
+        <input type="submit" value="submit">
+    </form>
+
+{% endif %}
+
+{% if show == 3 %} 
+    <form action = "/get-plot" method = "post">
+        <h5>What Two Columns Would You Like?</h5>
+        {% for i in list %}
+            <input type = "checkbox" name="relselect" value = "{{i}}" id = "{{i}}">
+            <label for="{{i}}">{{i}}</label>
+        {% endfor %}
+        <br>
+        <input type="submit" value="submit">
+    </form>
+
+{% endif %}
+<br><br><br>
+<p>{{text}}</p>
+
+{% if means|length > 0 %} 
+<h3>Means:</h3>
+{% for i in range(means|length) %} 
+    <p>{{list[i]}}: {{means[i]}}</p>
+{% endfor %}
+
+<h3>Medians:</h3>
+{% for i in range(medians|length) %} 
+    <p>{{list[i]}}: {{medians[i]}}</p>
+{% endfor %}
+{% endif %}
+<img src="{{url}}" alt="">
+
+<br><br><br><br>
+{% if show != 0 %}
+<form action="#" method="post">
+    <input type="submit" value="Return To Stats Picker" name="return">
+
+
 </form>
-
-
+{% endif %}
+<br><br><br>
 
 
 <p>Do you want to work on a new file?</p>
-<a href="stats.html">Input New File</a>
+<a href="/stats">Input New File</a>
 {% endblock %}
